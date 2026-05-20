@@ -11,7 +11,19 @@ import userRoutes from './routes/userRoutes.js';
 dotenv.config();
 const app = express();
 
-app.use(cors());
+const corsOptions = {
+    origin: function (origin, callback) {
+        if (!origin || origin.match(/^https:\/\/.+\.vercel\.app$/)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+app.use(cors(corsOptions));
 app.use(express.json({ limit: '20mb' }));
 app.use(express.urlencoded({ extended: true, limit: '20mb' }));
 

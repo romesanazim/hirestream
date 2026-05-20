@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://localhost:5000/api', // Ensure this matches your backend port
+    baseURL: import.meta.env.VITE_API_URL || 'https://hirestream-backend-gamma.vercel.app/api',
 });
 
 // Automatically add token to headers

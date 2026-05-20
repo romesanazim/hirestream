@@ -13,14 +13,15 @@ const app = express();
 
 const corsOptions = {
     origin: function (origin, callback) {
-        if (!origin || origin.match(/^https:\/\/.+\.vercel\.app$/)) {
+        if (!origin || origin.match(/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/) || origin.match(/^https:\/\/.+\.vercel\.app$/)) {
             callback(null, true);
         } else {
             callback(new Error('Not allowed by CORS'));
         }
     },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
 };
 
 app.use(cors(corsOptions));
